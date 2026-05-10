@@ -1,6 +1,6 @@
 ---
 name: gstack-lite-design-review
-description: UI/UX review for design plans, interaction specs, screenshots, prototypes, or implemented screens. Use before implementation to catch missing design decisions, or after implementation to review usability, accessibility, visual hierarchy, responsive behavior, and interaction states.
+description: UI/UX review for design plans, interaction specs, screenshots, prototypes, or implemented screens. Use before implementation to catch missing design decisions, or after implementation to review usability, accessibility, visual hierarchy, responsive behavior, interaction states, and design-system readiness.
 ---
 
 # GStack Lite Design Review
@@ -9,7 +9,18 @@ You are reviewing whether the user experience is clear, intentional, accessible,
 
 Do not modify files unless the user explicitly asks.
 
-## Inputs
+## What this preserves from GStack
+
+- design completeness rating;
+- user-flow and information hierarchy review;
+- interaction-state coverage;
+- AI-slop / generic-design detection;
+- design-system authority check;
+- responsive and accessibility gates;
+- unresolved design-decision capture;
+- implementation-readiness handoff.
+
+## Inputs and evidence limits
 
 Use any available:
 
@@ -17,52 +28,162 @@ Use any available:
 - design-system files such as `DESIGN.md`, tokens, component docs, or style guides;
 - user journey, target users, accessibility constraints, and platform constraints.
 
+Maintain an evidence ledger:
+
+- `Inspected`: visuals, screens, prototype, screenshots, or live UI actually inspected.
+- `Plan-stated`: design decisions stated in the supplied plan/spec.
+- `Inferred`: reasonable interpretation from artifacts.
+- `Not provided`: missing evidence.
+- `Not tested`: runtime/device/a11y behavior not actually tested.
+
 If visual evidence is unavailable, mark visual judgments as plan-based rather than inspected.
 
-## Review sequence
+## Applicability gate
 
-### 1. User flow review
+Before reviewing, decide whether design review applies.
 
-Check whether the plan or screen makes the core journey obvious:
+Applicable if the work includes any of:
+
+- new or changed screen/page/component;
+- user-facing flow;
+- copy/microcopy;
+- interaction state;
+- layout/responsive behavior;
+- accessibility surface;
+- design-system decision.
+
+If none apply, output: `No UI/user-facing design scope detected; design review not applicable.`
+
+## Step 0 — Design authority and completeness rating
+
+Rate overall design completeness from 0-10.
+
+Use this interpretation:
+
+- `0-2`: UI/user experience barely specified.
+- `3-4`: rough direction exists, many implementer guesses remain.
+- `5-6`: core flow exists, but important states or responsive/a11y details are missing.
+- `7-8`: mostly buildable, a few decisions remain.
+- `9-10`: implementer can build without inventing design behavior.
+
+Also state:
+
+- does a design system or visual authority exist?
+- if yes, what should be followed?
+- if no, what design decisions are currently unowned?
+
+Hard rule: if visual tokens, component patterns, or interaction rules are unresolved, say so directly. Do not pretend design authority exists.
+
+## Review pass 1 — User flow and information architecture
+
+Check whether the core journey is obvious:
 
 - entry point;
 - primary action;
 - next step;
 - success moment;
 - escape/cancel/back path;
-- first-time and returning-user behavior.
+- first-time and returning-user behavior;
+- what the user sees first, second, and third.
 
-### 2. Visual hierarchy review
+Flag crowded layouts, competing CTAs, weak grouping, unclear navigation, and screens that make the user infer the next action.
 
-Check what the user sees first, second, and third. Flag crowded layouts, competing CTAs, generic card grids, weak grouping, or missing emphasis.
+## Review pass 2 — Interaction states
 
-### 3. Interaction states review
+Check loading, empty, error, success, partial, disabled, selected, validation, permission-denied, and recovery states.
 
-Check loading, empty, error, success, partial, disabled, selected, validation, and recovery states. Describe what the user sees, not just what the system does.
+For each important feature, require a state table:
 
-### 4. Accessibility review
+| Feature | Loading | Empty | Error | Success | Partial/disabled |
+|---|---|---|---|---|---|
+|  | what user sees | what user sees | what user sees | what user sees | what user sees |
 
-Check keyboard access, focus order, screen-reader labels, contrast, touch targets, form errors, motion sensitivity, and semantic structure where relevant.
+Describe what the user sees, not just what the system does.
 
-### 5. Responsive behaviour review
+## Review pass 3 — Empty/error/loading quality
 
-Do not accept "it stacks on mobile" as a complete spec. Check mobile, tablet, desktop, long text, narrow widths, and overflow behavior.
+Treat broken and empty states as real product moments.
 
-### 6. Empty/loading/error states
+Check:
 
-Treat these as real product moments. Every empty state should explain context and offer the next useful action when appropriate.
+- empty state explains context;
+- empty state offers a useful next action when appropriate;
+- errors name the problem and recovery path;
+- loading state sets expectation;
+- partial data does not look like failure;
+- destructive or irreversible actions require enough clarity.
 
-### 7. Copy and microcopy
+## Review pass 4 — Accessibility
 
-Check labels, helper text, errors, headings, button text, confirmation language, and trust/safety copy. Flag vague copy such as "Submit", "Error occurred", or "No data" when the user needs more context.
+Check where relevant:
 
-### 8. Design-system gaps
+- keyboard access;
+- focus order;
+- focus visible state;
+- semantic structure and landmarks;
+- screen-reader labels;
+- form error association;
+- contrast;
+- touch target size;
+- reduced motion;
+- color-not-only signaling.
 
-If visual tokens or component patterns are unresolved, say so directly. Do not pretend design authority exists when it does not.
+If you cannot actually test accessibility, say `not tested` and review only the specification.
 
-### 9. Implementation feasibility
+## Review pass 5 — Responsive behavior
 
-Check whether the design asks engineering to infer key details: component behavior, breakpoints, state ownership, validation, animation, data availability, or permissions.
+Do not accept “it stacks on mobile” as a complete spec.
+
+Check:
+
+- mobile, tablet, desktop behavior;
+- narrow width layout;
+- long labels/names/content;
+- overflow;
+- touch vs pointer interactions;
+- density and readability;
+- viewport-specific navigation.
+
+## Review pass 6 — Copy and microcopy
+
+Check labels, helper text, errors, headings, button text, confirmation language, trust/safety copy, and onboarding hints.
+
+Flag vague copy such as:
+
+- `Submit` when action-specific text is needed;
+- `Error occurred` without recovery guidance;
+- `No data` without context;
+- generic onboarding that does not explain why the user is here.
+
+## Review pass 7 — AI-slop / generic-design risk
+
+Look for generic or unearned patterns:
+
+- anonymous card grids;
+- interchangeable hero copy;
+- icons without information;
+- “clean modern dashboard” with no hierarchy;
+- decorative gradients that do not support meaning;
+- UI that could belong to any product.
+
+Do not demand novelty for its own sake. Demand specificity to the user, task, and trust context.
+
+## Design decision gate
+
+Before declaring readiness, list decisions that implementation must not invent.
+
+```markdown
+## Design Decision Gate
+
+Blocking design decisions:
+1. ___ — why it blocks build/readiness: ___
+
+Design authority status: explicit / partial / missing
+State coverage status: complete / partial / missing
+Responsive/a11y status: specified / partial / not specified
+```
+
+If the implementer must invent information hierarchy, states, responsive behavior, or design tokens, verdict cannot be `CLEAR`.
 
 ## Output
 
@@ -73,23 +194,45 @@ Produce:
 ## Verdict
 `CLEAR` / `CLEAR WITH DESIGN FIXES` / `BLOCKED`
 
-## Evidence reviewed
+Verdict criteria:
 
-List what you actually inspected. Mark anything important as `not provided` or `not tested`.
+- `CLEAR`: design is specific enough to build or ship without major guessing.
+- `CLEAR WITH DESIGN FIXES`: direction is sound, but specific design decisions must be added or corrected.
+- `BLOCKED`: missing design authority, unresolved flow/states, accessibility/responsive gaps, or absent visuals make readiness unsafe.
 
-## User flow review
+## Evidence ledger
+
+| Type | Notes |
+|---|---|
+| Inspected |  |
+| Plan-stated |  |
+| Inferred |  |
+| Not provided |  |
+| Not tested |  |
+
+## Design completeness score
+
+Initial score: `__/10`
+
+What would make it a 10:
+
+## Design authority status
+
+## User flow and information architecture
 
 ## Visual hierarchy review
 
 ## Interaction states review
 
+## Empty/loading/error states
+
 ## Accessibility review
 
 ## Responsive behaviour review
 
-## Empty/loading/error states
-
 ## Copy and microcopy
+
+## AI-slop / generic-design risk
 
 ## Design-system gaps
 
@@ -103,6 +246,8 @@ These block readiness.
 
 Separate must-fix from polish.
 
+## Design Decision Gate
+
 ## Final design readiness
 
-State whether the plan/screen is ready to implement, ready to ship, or needs another pass.
+State whether the plan/screen is ready to implement, ready to ship, needs design-system authority, needs visual exploration, or needs another pass.
