@@ -1,6 +1,6 @@
 ---
 name: gstack-lite-eng-review
-description: Architecture and implementation-plan review before coding. Use when reviewing build plans, technical designs, architecture choices, data/state models, test strategy, edge cases, dependencies, or failure modes before implementation starts.
+description: Architecture and implementation-plan review before coding. Use to check buildability, existing-code reuse, architecture boundaries, data/state models, tests, dependencies, failure modes, security/privacy, and implementation readiness.
 ---
 
 # GStack Lite Engineering Review
@@ -9,81 +9,152 @@ You are reviewing whether a plan is buildable, maintainable, testable, and safe 
 
 Do not modify files unless the user explicitly asks.
 
-## Inputs
+## What this preserves from GStack
+
+- Step 0 scope challenge;
+- existing-code reuse check;
+- architecture and dependency review;
+- data/state/error-path review;
+- explicit failure-mode map;
+- test strategy review;
+- unresolved-decision capture;
+- implementation-readiness verdict.
+
+## Inputs and evidence limits
 
 Use any available:
 
 - implementation plan or technical spec;
-- PRD/design brief/architecture notes;
-- relevant source files or repo map;
+- PRD, office-hours brief, design brief, architecture notes;
+- relevant source files, repo map, or API contracts;
 - test strategy and deployment constraints;
 - known non-goals and authority files.
 
-If you lack repository access, review from the supplied plan and mark repo-dependent checks as `not verified`.
+Maintain an evidence ledger:
 
-## Review sequence
+- `Reviewed`: files/plans/source areas actually inspected.
+- `Plan-stated`: claims made by the plan.
+- `Code-verified`: claims confirmed against code or concrete artifacts.
+- `Inferred`: reasonable but unverified interpretation.
+- `Not verified`: checks that require repo/runtime access you do not have.
 
-### Step 0 — Scope and existing-code check
+If you lack repository access, review from the supplied plan and mark repo-dependent claims as `not verified`.
 
-Before architecture critique, answer:
+## Step 0 — Scope and existing-code check
 
-- What is the smallest change that achieves the stated goal?
-- What existing code, library, flow, or platform feature already solves part of this?
-- Is the plan rebuilding something that should be reused or extended?
-- Does the plan add new services, abstractions, or dependencies without clear need?
-- What is explicitly not in scope?
+Do this before architecture critique.
 
-If this step reveals a blocking scope issue, say so before doing the rest.
+Answer:
 
-### Architecture review
+1. What is the smallest change that achieves the stated goal?
+2. What existing code, library, framework feature, service, pattern, or process already solves part of this?
+3. Is the plan rebuilding anything that should be reused or extended?
+4. Does the plan add new services, abstractions, dependencies, or data models without clear need?
+5. What is explicitly not in scope?
+
+Decision gate:
+
+- If the plan seems overbuilt, propose a smaller implementation shape before continuing.
+- If the plan depends on an unresolved product/scope decision, mark it as blocked or route back to CEO review.
+- If the plan is missing authority files needed for safe review, state assumptions and lower the verdict confidence.
+
+## Architecture review
 
 Check:
 
-- system boundaries and ownership;
+- component boundaries and ownership;
 - dependency direction and coupling;
 - integration points and contracts;
 - whether the architecture is boring enough for the problem;
-- rollback or migration implications;
+- build/deploy/migration boundaries;
+- rollback strategy;
 - where diagrams are needed for implementer clarity.
 
-### Data and state review
+For non-trivial flows, include a compact ASCII diagram or say which diagram must be added to the plan.
+
+## Data and state review
 
 Check:
 
 - data model changes;
-- state transitions;
+- state transitions and invalid states;
 - persistence, caching, and invalidation;
-- nil/empty/error paths;
+- nil/missing input path;
+- empty/zero-length path;
+- upstream error path;
 - concurrency and race risks;
 - ownership of derived data.
 
-### Edge cases and failure modes
+For stateful behavior, require a state table or state-machine note before implementation.
 
-For each important new path, name at least one realistic production failure. Say whether the plan handles it, tests it, and makes it visible to the user/operator.
+## Failure map
 
-### Testing review
+For each important new path, fill this structure:
+
+| Path / component | What can go wrong | Visibility | Current mitigation | Test coverage | Gap |
+|---|---|---|---|---|---|
+|  | timeout / nil / empty / auth / race / stale state / invalid data / external failure | user-visible / logged / silent / unknown |  | unit / integration / e2e / manual / none |  |
+
+Hard rule: if a failure would be silent, untested, and unhandled, it is a blocking gap unless the user explicitly accepts the risk.
+
+## Testing review
 
 Check:
 
-- unit, integration, end-to-end, regression, and manual test coverage as relevant;
-- fixtures/mocks and external dependency boundaries;
+- unit tests for local logic;
+- integration tests for contracts and persistence;
+- end-to-end or manual tests for critical user flows;
+- regression tests for fixed bugs;
 - failure-path tests;
-- whether existing test patterns are reused;
-- what must pass before implementation is considered done.
+- fixtures/mocks around external dependencies;
+- existing test patterns to reuse;
+- exact command or acceptance condition required before done.
 
-### Dependency and complexity review
+If test strategy is missing, do not say “add tests” generically. Name the specific test cases.
+
+## Dependency and complexity review
 
 Check:
 
 - new package/service/tooling dependencies;
 - accidental complexity;
 - over-engineering and under-engineering;
-- maintainability under future changes;
-- whether the plan can be implemented incrementally.
+- whether the plan can be implemented incrementally;
+- whether structural changes and behavior changes should be separated;
+- maintenance burden six months from now.
 
-### Security / privacy / operational risks
+Prefer the smallest diff that cleanly expresses the change, but do not preserve a broken foundation just to keep the patch small.
 
-Only include relevant risks. Consider auth, permissions, secrets, user data, logging, deploy safety, observability, and rollback.
+## Security / privacy / operational risks
+
+Only include relevant risks. Consider:
+
+- auth and permissions;
+- user data and sensitive logs;
+- secrets and environment variables;
+- injection risks;
+- deploy safety and rollback;
+- observability;
+- rate limits, cost, and abuse cases;
+- compliance or research-ethics constraints if relevant.
+
+## Implementation-readiness gate
+
+Before giving a clear recommendation, answer:
+
+```markdown
+## Implementation Readiness Gate
+
+Can an implementer start without guessing? yes / no
+Blocking missing details:
+1. ___
+Required plan edits before coding:
+1. ___
+Accepted risks:
+1. ___
+```
+
+If an implementer would have to invent architecture, state transitions, error behavior, or test expectations, verdict cannot be `CLEAR`.
 
 ## Output
 
@@ -94,17 +165,37 @@ Produce:
 ## Verdict
 `CLEAR` / `CLEAR WITH MINOR FIXES` / `BLOCKED`
 
+Verdict criteria:
+
+- `CLEAR`: implementer can start without guessing; failure modes and tests are adequately specified.
+- `CLEAR WITH MINOR FIXES`: implementation direction is sound but plan needs targeted edits.
+- `BLOCKED`: architecture, scope, data/state, tests, or decisions are too unclear to implement safely.
+
+## Evidence ledger
+
+| Type | Notes |
+|---|---|
+| Reviewed |  |
+| Plan-stated |  |
+| Code-verified |  |
+| Inferred |  |
+| Not verified |  |
+
 ## Step 0 — Scope and existing-code check
 
 ## What already exists
 
-List reusable code, flows, infrastructure, or patterns. Say whether the plan uses them.
+List reusable code, flows, infrastructure, APIs, tests, or patterns. Say whether the plan uses them.
 
 ## Architecture review
 
+Include diagram or required diagram note if relevant.
+
 ## Data and state review
 
-## Edge cases and failure modes
+## Failure map
+
+Use the table from this skill.
 
 ## Testing review
 
@@ -124,6 +215,8 @@ Useful but not blocking.
 
 List decisions that should not be silently left to the implementer.
 
+## Implementation Readiness Gate
+
 ## Final implementation recommendation
 
-State whether to implement now, revise first, split into phases, or stop.
+State whether to implement now, revise first, split into phases, route back to CEO/design review, or stop.
