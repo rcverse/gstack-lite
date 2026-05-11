@@ -55,6 +55,16 @@ Applicable if the work includes any of:
 
 If none apply, output: `No UI/user-facing design scope detected; design review not applicable.`
 
+## Review mode
+
+Choose and state one mode before scoring:
+
+- `PLAN_READINESS`: design plan or interaction spec before implementation.
+- `IMPLEMENTED_UI_REVIEW`: screenshots, prototype, recording, live UI, or built screen after implementation.
+- `VISUAL_ONLY_REVIEW`: visual artifact review without enough product/spec/runtime context.
+
+Mode matters for verdicts. A plan can be ready for implementation without being visually ship-ready. A screenshot can reveal visual issues without proving the interaction works.
+
 ## Step 0 — Design authority and completeness rating
 
 Rate overall design completeness from 0-10.
@@ -93,9 +103,23 @@ Check whether the core journey is obvious:
 - first-time and returning-user behavior;
 - what the user sees first, second, and third.
 
-Flag crowded layouts, competing CTAs, weak grouping, unclear navigation, and screens that make the user infer the next action.
+Flag crowded flows, competing CTAs, weak grouping, unclear navigation, and screens that make the user infer the next action.
 
-## Review pass 2 — Interaction states
+## Review pass 2 — Visual hierarchy
+
+Check whether the visual surface makes priority legible:
+
+- primary content vs secondary content;
+- scan path;
+- spacing and grouping;
+- typography scale and emphasis;
+- affordances and interactive priority;
+- contrast between controls, content, warnings, and metadata;
+- whether the most important action or state is visually obvious.
+
+If no visual artifact exists, mark this pass as plan-based only and name the visual evidence needed.
+
+## Review pass 3 — Interaction states
 
 Check loading, empty, error, success, partial, disabled, selected, validation, permission-denied, and recovery states.
 
@@ -107,7 +131,7 @@ For each important feature, require a state table:
 
 Describe what the user sees, not just what the system does.
 
-## Review pass 3 — Empty/error/loading quality
+## Review pass 4 — Empty/error/loading quality
 
 Treat broken and empty states as real product moments.
 
@@ -120,7 +144,7 @@ Check:
 - partial data does not look like failure;
 - destructive or irreversible actions require enough clarity.
 
-## Review pass 4 — Accessibility
+## Review pass 5 — Accessibility
 
 Check where relevant:
 
@@ -137,7 +161,7 @@ Check where relevant:
 
 If you cannot actually test accessibility, say `not tested` and review only the specification.
 
-## Review pass 5 — Responsive behavior
+## Review pass 6 — Responsive behavior
 
 Do not accept “it stacks on mobile” as a complete spec.
 
@@ -151,7 +175,7 @@ Check:
 - density and readability;
 - viewport-specific navigation.
 
-## Review pass 6 — Copy and microcopy
+## Review pass 7 — Copy and microcopy
 
 Check labels, helper text, errors, headings, button text, confirmation language, trust/safety copy, and onboarding hints.
 
@@ -162,7 +186,7 @@ Flag vague copy such as:
 - `No data` without context;
 - generic onboarding that does not explain why the user is here.
 
-## Review pass 7 — AI-slop / generic-design risk
+## Review pass 8 — AI-slop / generic-design risk
 
 Look for generic or unearned patterns:
 
@@ -195,7 +219,7 @@ State coverage status: complete / partial / missing
 Responsive/a11y status: specified / partial / not specified
 ```
 
-If the implementer must invent information hierarchy, states, responsive behavior, or design tokens, verdict cannot be `CLEAR`.
+If the implementer must invent information hierarchy, visual hierarchy, states, responsive behavior, or design tokens, verdict cannot be `CLEAR`.
 
 ## Output
 
@@ -208,9 +232,13 @@ Produce:
 
 Verdict criteria:
 
-- `CLEAR`: design is specific enough to build or ship without major guessing, and required visual/layout claims have adequate evidence.
+- `CLEAR`: design is specific enough to build or ship without major guessing, and required visual/layout claims have adequate evidence for the selected review mode.
 - `CLEAR WITH DESIGN FIXES`: direction is sound, but specific design decisions must be added or corrected.
 - `BLOCKED`: missing design authority, unresolved flow/states, accessibility/responsive gaps, or absent visuals make readiness unsafe.
+
+## Review mode
+
+`PLAN_READINESS` / `IMPLEMENTED_UI_REVIEW` / `VISUAL_ONLY_REVIEW`
 
 ## Evidence ledger
 
@@ -260,6 +288,10 @@ What would make it a 10:
 
 These block readiness.
 
+## What is NOT in scope / deferred design decisions
+
+List deferred, rejected, or intentionally excluded design work with rationale. If none was identified, say `None identified`.
+
 ## Recommended design changes
 
 Separate must-fix from polish.
@@ -268,4 +300,4 @@ Separate must-fix from polish.
 
 ## Final design readiness
 
-State whether the plan/screen is ready to implement, ready to ship, needs design-system authority, needs visual exploration, or needs another pass.
+State whether the plan/screen is ready to implement, ready to ship, needs design-system authority, needs visual exploration, needs runtime testing, or needs another pass.
