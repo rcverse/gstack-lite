@@ -3,6 +3,16 @@
 ## Verdict
 `SHIP` / `SHIP WITH MINOR ISSUES` / `DO NOT SHIP`
 
+## Evidence ledger
+
+| Type | Notes |
+|---|---|
+| Tested |  |
+| Inspected |  |
+| Reported |  |
+| Not tested |  |
+| Blocked |  |
+
 ## Environment
 
 - URL/build/commit:
@@ -11,22 +21,28 @@
 - Date/time:
 - Limitations:
 
+## Build / version identity
+
+State known URL/build/commit/version and any traceability gaps.
+
 ## Critical path tested
 
 
 ## Test matrix
 
+Use exact result labels: `pass`, `fail`, `partial`, `not tested`, `blocked`.
+
 | Area | Result | Evidence / notes |
 |---|---|---|
-| Happy path | pass/fail/not tested |  |
-| Empty state | pass/fail/not tested |  |
-| Invalid input | pass/fail/not tested |  |
-| Loading state | pass/fail/not tested |  |
-| Error/recovery state | pass/fail/not tested |  |
-| Permissions/auth | pass/fail/not tested |  |
-| Responsive behavior | pass/fail/not tested |  |
-| Accessibility basics | pass/fail/not tested |  |
-| Regression-sensitive adjacent flows | pass/fail/not tested |  |
+| Happy path | pass/fail/partial/not tested/blocked |  |
+| Empty state | pass/fail/partial/not tested/blocked |  |
+| Invalid input | pass/fail/partial/not tested/blocked |  |
+| Loading state | pass/fail/partial/not tested/blocked |  |
+| Error/recovery state | pass/fail/partial/not tested/blocked |  |
+| Permissions/auth | pass/fail/partial/not tested/blocked |  |
+| Responsive behavior | pass/fail/partial/not tested/blocked |  |
+| Accessibility basics | pass/fail/partial/not tested/blocked |  |
+| Regression-sensitive adjacent flows | pass/fail/partial/not tested/blocked |  |
 
 ## Findings
 
@@ -42,6 +58,15 @@
 - Actual:
 - Evidence:
 - Suggested fix:
+- Retest condition:
+
+## Retest summary
+
+Use this for follow-up QA after fixes.
+
+| Prior finding | Retest result | Evidence | Still open? |
+|---|---|---|---|
+|  | verified fixed / still failing / partially fixed / not retested / blocked |  | yes / no |
 
 ## Edge cases checked
 

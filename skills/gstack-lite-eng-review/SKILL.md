@@ -13,6 +13,7 @@ Do not modify files unless the user explicitly asks.
 
 - Step 0 scope challenge;
 - existing-code reuse check;
+- complexity and distribution checks;
 - architecture and dependency review;
 - data/state/error-path review;
 - explicit failure-mode map;
@@ -52,11 +53,17 @@ Answer:
 4. Does the plan add new services, abstractions, dependencies, or data models without clear need?
 5. What is explicitly not in scope?
 
+Complexity smell: if the plan touches more than about 8 files, introduces more than 2 new services/classes, adds a new dependency, or creates a new artifact type, propose a split, reduction, or staged implementation before continuing. If the user keeps the larger shape, record the accepted risk.
+
+Distribution check: if the plan creates a CLI, package, dataset, binary, model, extension, research instrument, or other standalone artifact, state how users/operators will obtain, run, version, update, or validate it. If absent, mark it as a readiness gap.
+
 Decision gate:
 
 - If the plan seems overbuilt, propose a smaller implementation shape before continuing.
 - If the plan depends on an unresolved product/scope decision, mark it as blocked or route back to CEO review.
 - If the plan is missing authority files needed for safe review, state assumptions and lower the verdict confidence.
+
+In an interactive session, stop at this gate when scope, complexity, or distribution choices materially change the implementation plan. In report-only mode, record unresolved items as blockers or confidence-lowering gaps.
 
 ## Architecture review
 
@@ -70,7 +77,7 @@ Check:
 - rollback strategy;
 - where diagrams are needed for implementer clarity.
 
-For non-trivial flows, include a compact ASCII diagram or say which diagram must be added to the plan.
+For non-trivial flows, include a compact ASCII diagram or say which diagram must be added to the plan. If the flow is too important to implement from prose alone, the missing diagram is a readiness gap.
 
 ## Data and state review
 
@@ -94,6 +101,8 @@ For each important new path, fill this structure:
 | Path / component | What can go wrong | Visibility | Current mitigation | Test coverage | Gap |
 |---|---|---|---|---|---|
 |  | timeout / nil / empty / auth / race / stale state / invalid data / external failure | user-visible / logged / silent / unknown |  | unit / integration / e2e / manual / none |  |
+
+Name the error condition where knowable. Do not accept generic “handle errors”; say what fails, who catches it, what the user/operator sees, and how it is tested.
 
 Hard rule: if a failure would be silent, untested, and unhandled, it is a blocking gap unless the user explicitly accepts the risk.
 
@@ -138,6 +147,16 @@ Only include relevant risks. Consider:
 - rate limits, cost, and abuse cases;
 - compliance or research-ethics constraints if relevant.
 
+## Implementation lanes
+
+For multi-workstream plans, identify whether work can be split safely.
+
+| Lane | Scope | Depends on | Can run in parallel? | Merge/conflict risk |
+|---|---|---|---|---|
+|  |  |  | yes / no | low / medium / high |
+
+Skip this table only when the plan is clearly sequential or too small to benefit.
+
 ## Implementation-readiness gate
 
 Before giving a clear recommendation, answer:
@@ -154,7 +173,7 @@ Accepted risks:
 1. ___
 ```
 
-If an implementer would have to invent architecture, state transitions, error behavior, or test expectations, verdict cannot be `CLEAR`.
+If an implementer would have to invent architecture, state transitions, error behavior, distribution behavior, or test expectations, verdict cannot be `CLEAR`.
 
 ## Output
 
@@ -169,7 +188,7 @@ Verdict criteria:
 
 - `CLEAR`: implementer can start without guessing; failure modes and tests are adequately specified.
 - `CLEAR WITH MINOR FIXES`: implementation direction is sound but plan needs targeted edits.
-- `BLOCKED`: architecture, scope, data/state, tests, or decisions are too unclear to implement safely.
+- `BLOCKED`: architecture, scope, data/state, tests, distribution, or decisions are too unclear to implement safely.
 
 ## Evidence ledger
 
@@ -181,11 +200,13 @@ Verdict criteria:
 | Inferred |  |
 | Not verified |  |
 
-## Step 0 — Scope and existing-code check
+## Step 0 — Scope, complexity, and existing-code check
 
 ## What already exists
 
 List reusable code, flows, infrastructure, APIs, tests, or patterns. Say whether the plan uses them.
+
+## Distribution / artifact check
 
 ## Architecture review
 
@@ -202,6 +223,10 @@ Use the table from this skill.
 ## Dependency and complexity review
 
 ## Security / privacy / operational risks
+
+## Implementation lanes
+
+Use the table from this skill if relevant.
 
 ## Required plan edits
 

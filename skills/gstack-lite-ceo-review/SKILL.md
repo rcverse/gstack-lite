@@ -16,6 +16,7 @@ Do not modify files unless the user explicitly asks.
 - implementation alternatives before recommendation;
 - explicit user/operator impact;
 - hidden-assumption review;
+- strategic failure pressure;
 - NOT in scope capture;
 - decision gates before implementation;
 - verdict-driven handoff.
@@ -110,6 +111,10 @@ Rejected/deferred scope: ___
 Evidence confidence: high / medium / low
 ```
 
+Scope-change rule: every scope-changing proposal must be marked `ACCEPT`, `DEFER`, or `REJECT`. Do not silently include expansions or reductions in the recommended plan. If the user has not decided, list it under `Decision points` and lower the verdict.
+
+In an interactive session, stop here until the user confirms, rejects, or marks scope decisions unresolved. In report-only mode, unresolved scope decisions remain blockers or confidence-lowering items.
+
 If blocking decisions remain, verdict cannot be `CLEAR`.
 
 ## Step 3 — Scope review
@@ -146,6 +151,29 @@ Look for assumptions about:
 - technical feasibility, if it affects scope.
 
 For each important assumption, mark it as supported, weakly supported, or unsupported.
+
+## Step 4.5 — Strategic failure map
+
+For the major assumptions or scope choices, ask what breaks if they are wrong.
+
+| Assumption / choice | If wrong, what breaks? | Who notices? | Recovery path | Decision needed? |
+|---|---|---|---|---|
+|  |  |  |  | yes / no |
+
+Use this for strategic, adoption, validity, governance, maintenance, and distribution failures. Engineering-level failure modes can be deferred to engineering review, but strategic failure modes belong here.
+
+## Step 4.75 — Adoption, distribution, or use path
+
+If the plan creates something people must adopt, run, receive, validate, or maintain, state the path explicitly.
+
+Examples:
+
+- product feature: how users discover and start using it;
+- internal tool: how operators find it, trust it, and fit it into the workflow;
+- research instrument: how participants/researchers use it without distorting the method;
+- CLI/package/artifact: how users install, version, update, or verify it.
+
+If the path is unknown and affects whether the plan creates value, mark it as a scope or evidence gap.
 
 ## Step 5 — NOT in scope
 
@@ -197,6 +225,14 @@ Verdict criteria:
 ### C — Stronger or lateral scope, optional
 
 ## Scope challenge
+
+## Scope Decision Gate
+
+## Strategic failure map
+
+Use the table from this skill.
+
+## Adoption / distribution / use path
 
 ## What is NOT in scope
 

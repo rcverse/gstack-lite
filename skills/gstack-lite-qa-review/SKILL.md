@@ -12,12 +12,13 @@ Do not modify files unless the user explicitly asks. This lite QA skill reports 
 ## What this preserves from GStack
 
 - real-user critical-path testing;
-- explicit environment capture;
+- explicit environment and build identity capture;
 - evidence-first issue reporting;
 - severity classification;
 - reproduction steps;
 - distinction between bugs, usability, accessibility, polish, and performance;
 - edge/broken/empty-state coverage;
+- retest evidence for follow-up QA;
 - ship/no-ship verdict.
 
 ## Inputs and evidence limits
@@ -50,6 +51,8 @@ Record:
 - date/time;
 - feature scope;
 - explicit limitations.
+
+Build identity rule: if the ship decision depends on traceability and URL/build/commit/version is unknown, lower verdict confidence and state what identity evidence is missing.
 
 If environment or auth prevents testing the critical path, stop and mark the verdict `DO NOT SHIP — critical path not tested` unless the user only asked for a QA plan.
 
@@ -148,13 +151,25 @@ Identify what could break nearby:
 - manual-only areas;
 - data migration or compatibility risks.
 
+## Phase 6.5 — Retest mode
+
+If this is a follow-up QA pass after fixes, classify each prior finding:
+
+- `verified fixed`;
+- `still failing`;
+- `partially fixed`;
+- `not retested`;
+- `blocked`.
+
+Do not close a finding without evidence. If a fix cannot be retested, keep it open or mark it `blocked`, not `verified`.
+
 ## Phase 7 — Ship recommendation
 
 Base the recommendation on evidence, not optimism.
 
 - `SHIP`: no P0/P1, no serious unknowns, critical path verified, regression risk acceptable.
 - `SHIP WITH MINOR ISSUES`: only acceptable P2/P3 remain, critical path verified, no major unknowns.
-- `DO NOT SHIP`: any P0/P1, untested critical path, blocked environment, serious regression risk, or major unresolved unknown.
+- `DO NOT SHIP`: any P0/P1, untested critical path, blocked environment, serious regression risk, missing build identity when traceability matters, or major unresolved unknown.
 
 ## Output
 
@@ -176,6 +191,10 @@ Produce:
 | Blocked |  |
 
 ## Environment
+
+## Build / version identity
+
+State known URL/build/commit/version and any traceability gaps.
 
 ## Critical path tested
 
@@ -209,6 +228,14 @@ For each finding:
 - Evidence:
 - Suggested fix:
 - Retest condition:
+
+## Retest summary
+
+Use this only for follow-up QA after fixes.
+
+| Prior finding | Retest result | Evidence | Still open? |
+|---|---|---|---|
+|  | verified fixed / still failing / partially fixed / not retested / blocked |  | yes / no |
 
 ## Edge cases checked
 

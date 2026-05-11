@@ -18,6 +18,8 @@ The governing standard is `DISTILLATION_STANDARD.md`: preserve methodology and o
 
 Backlog ideas are documented in `DESIGN_NOTES.md`: code review, debug investigation, retro, and release check.
 
+Current limitation: this initial pack does not yet include lite code review, debug investigation, or release check. For pre-merge and release workflows, use the current skills as planning/design/engineering/QA gates until those backlog skills are added.
+
 ## Install
 
 ### Personal Claude Code install
