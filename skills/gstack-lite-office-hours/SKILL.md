@@ -50,6 +50,8 @@ Choose and state one mode. If the user’s situation spans modes, pick the domin
 
 Ask only questions whose answers change the brief. Push until the answer is specific enough to support the brief, or mark the gap as `Unknown`. Do not accept category-level users when a concrete case, role, operator, participant, or observed moment is needed.
 
+In interactive use, ask one question at a time. If the answer is vague, push once more. If it remains vague, mark it `Unknown` rather than smoothing it into the brief.
+
 If the user says “just draft it” or is clearly time-boxed, ask at most two remaining high-leverage questions, then produce the brief with clear assumptions.
 
 ## Phase 1 — Goal and success
@@ -155,6 +157,8 @@ Decision needed: confirm, correct, or narrow these premises before we choose an 
 ```
 
 In an interactive session, stop here until the user confirms, corrects, or marks the premises unresolved. In report-only mode, record unresolved premise items as blocking or confidence-lowering.
+
+Do not proceed to alternatives until the premise gate is confirmed, corrected, or explicitly marked unresolved.
 
 If premises are badly unsupported, do not pretend the idea is ready. Recommend discovery, observation, or a thinner prototype.
 
