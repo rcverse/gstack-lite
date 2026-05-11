@@ -55,6 +55,8 @@ Answer:
 
 Complexity smell: if the plan touches more than about 8 files, introduces more than 2 new services/classes, adds a new dependency, or creates a new artifact type, propose a split, reduction, or staged implementation before continuing. If the user keeps the larger shape, record the accepted risk.
 
+If Step 0 materially changes the implementation shape, compare at least two implementation shapes before recommending one. At minimum, compare the current/proposed shape against a smaller or staged shape, and state what each option preserves, defers, and risks.
+
 Distribution check: if the plan creates a CLI, package, dataset, binary, model, extension, research instrument, or other standalone artifact, state how users/operators will obtain, run, version, update, or validate it. If absent, mark it as a readiness gap.
 
 Decision gate:
@@ -206,6 +208,10 @@ Verdict criteria:
 
 List reusable code, flows, infrastructure, APIs, tests, or patterns. Say whether the plan uses them.
 
+## Implementation shape alternatives
+
+Use this only when Step 0 materially changes or challenges the implementation shape. Compare at least two shapes and state the recommendation.
+
 ## Distribution / artifact check
 
 ## Architecture review
@@ -227,6 +233,10 @@ Use the table from this skill.
 ## Implementation lanes
 
 Use the table from this skill if relevant.
+
+## What is NOT in scope
+
+List deferred, rejected, or intentionally excluded work with rationale. If none was identified, say `None identified`.
 
 ## Required plan edits
 
