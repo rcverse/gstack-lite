@@ -15,6 +15,7 @@ Use this before CEO, engineering, or design review when the user is still explor
 - mode-sensitive questioning;
 - forcing specificity instead of accepting vague user categories;
 - status-quo check;
+- observation and surprise check;
 - narrowest-wedge thinking;
 - premise challenge before alternatives;
 - design brief as the handoff artifact.
@@ -47,7 +48,7 @@ Choose and state one mode. If the user’s situation spans modes, pick the domin
 
 ## Question discipline
 
-Ask only questions whose answers change the brief. Push once when the answer is vague. Do not run a long questionnaire when the user has already provided enough evidence.
+Ask only questions whose answers change the brief. Push until the answer is specific enough to support the brief, or mark the gap as `Unknown`. Do not accept category-level users when a concrete case, role, operator, participant, or observed moment is needed.
 
 If the user says “just draft it” or is clearly time-boxed, ask at most two remaining high-leverage questions, then produce the brief with clear assumptions.
 
@@ -81,6 +82,16 @@ Pushback patterns:
 - If the answer is “people like it,” ask what they did, paid, changed, repeated, complained about, or failed to do without it.
 - If the answer is “nothing exists,” ask whether the pain is real enough to trigger action.
 - If the answer is “we need the full platform,” ask for the smallest useful wedge.
+
+## Phase 2.5 — Observation and surprise check
+
+Ask whether anyone has watched, inspected, piloted, or closely reconstructed real use.
+
+- What did the user/operator/participant actually do?
+- What surprised you or contradicted the initial assumption?
+- If no observation exists yet, what is the smallest observation or discovery step that would reduce the biggest uncertainty?
+
+Do not treat surveys, imagined workflows, or polished demos as equivalent to observed use unless the user explicitly accepts that evidence limit.
 
 ## Phase 3 — Status quo
 
@@ -119,6 +130,12 @@ Mode-specific wedge rules:
 
 Also name what is deliberately deferred.
 
+## Phase 5.5 — Future-fit check
+
+Where relevant, ask whether the likely future context makes this more essential or less.
+
+Consider changes in user behavior, institutional constraints, model/tool capability, policy, maintenance burden, research validity expectations, or distribution access. If the future context weakens the wedge, say so before recommending an approach.
+
 ## Decision gate — premises before alternatives
 
 Before generating solutions, state premises and ask the user to confirm or correct them.
@@ -136,6 +153,8 @@ Use this compact format:
 
 Decision needed: confirm, correct, or narrow these premises before we choose an approach.
 ```
+
+In an interactive session, stop here until the user confirms, corrects, or marks the premises unresolved. In report-only mode, record unresolved premise items as blocking or confidence-lowering.
 
 If premises are badly unsupported, do not pretend the idea is ready. Recommend discovery, observation, or a thinner prototype.
 
@@ -185,7 +204,11 @@ Produce:
 
 ## Specific user / operator / participant / stakeholder
 
+## Observation / surprise check
+
 ## Narrowest useful wedge
+
+## Future-fit note
 
 ## Premises to carry forward
 
@@ -198,6 +221,10 @@ Produce:
 ### Approach C — Lateral version, optional
 
 ## Recommendation
+
+## The assignment
+
+Name the one concrete next action: discovery, observation, draft PRD, technical planning, prototype, or park.
 
 ## What is NOT in scope yet
 
