@@ -12,6 +12,7 @@ Do not modify files unless the user explicitly asks.
 ## What this preserves from GStack
 
 - design completeness rating;
+- visual-evidence pressure without requiring GStack designer tooling;
 - user-flow and information hierarchy review;
 - interaction-state coverage;
 - AI-slop / generic-design detection;
@@ -73,6 +74,12 @@ Also state:
 - if no, what design decisions are currently unowned?
 
 Hard rule: if visual tokens, component patterns, or interaction rules are unresolved, say so directly. Do not pretend design authority exists.
+
+## Visual evidence gate
+
+If judging visual/layout readiness, require at least one visual artifact: screenshot, prototype, mockup, recording, live screen inspection, or sufficiently specific design-system reference.
+
+If none is available, do not give `CLEAR` for visual readiness. Mark the review as plan-based and list the visual evidence needed before build/ship confidence can be high.
 
 ## Review pass 1 — User flow and information architecture
 
@@ -168,6 +175,10 @@ Look for generic or unearned patterns:
 
 Do not demand novelty for its own sake. Demand specificity to the user, task, and trust context.
 
+## Per-pass scoring rule
+
+For any pass below `7/10`, state what would make it `10/10` and name the decision, artifact, or specification needed. Do not merely say the pass is weak.
+
 ## Design decision gate
 
 Before declaring readiness, list decisions that implementation must not invent.
@@ -179,6 +190,7 @@ Blocking design decisions:
 1. ___ — why it blocks build/readiness: ___
 
 Design authority status: explicit / partial / missing
+Visual evidence status: inspected / plan-based only / missing
 State coverage status: complete / partial / missing
 Responsive/a11y status: specified / partial / not specified
 ```
@@ -196,7 +208,7 @@ Produce:
 
 Verdict criteria:
 
-- `CLEAR`: design is specific enough to build or ship without major guessing.
+- `CLEAR`: design is specific enough to build or ship without major guessing, and required visual/layout claims have adequate evidence.
 - `CLEAR WITH DESIGN FIXES`: direction is sound, but specific design decisions must be added or corrected.
 - `BLOCKED`: missing design authority, unresolved flow/states, accessibility/responsive gaps, or absent visuals make readiness unsafe.
 
@@ -215,6 +227,12 @@ Verdict criteria:
 Initial score: `__/10`
 
 What would make it a 10:
+
+## Visual evidence status
+
+| Screen / flow | Evidence used | Confidence | Notes |
+|---|---|---|---|
+|  | screenshot / prototype / mockup / recording / live screen / plan only | high / medium / low |  |
 
 ## Design authority status
 
