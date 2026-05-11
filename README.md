@@ -6,6 +6,8 @@ This package is not GStack. It does not include the GStack runtime, browser daem
 
 The governing standard is `DISTILLATION_STANDARD.md`: preserve methodology and operational pressure, remove runtime machinery, keep each skill project-agnostic.
 
+Current scope: this initial pack is production-usable for idea shaping, strategic/scope review, design readiness, engineering readiness, and evidence-based QA. It is not yet a complete pre-merge or release workflow pack until code-review and release-check skills are added.
+
 ## Included skills
 
 | Skill | Use for | Core question |
