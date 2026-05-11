@@ -50,7 +50,18 @@ Record:
 - account/auth state if relevant;
 - date/time;
 - feature scope;
+- QA scope level;
 - explicit limitations.
+
+Choose and state one QA scope level:
+
+- `SMOKE`: only verifies the fastest sanity path; does not claim critical-path coverage.
+- `CRITICAL_PATH`: verifies the main user journey and obvious blockers.
+- `STANDARD`: verifies critical path plus common edge, empty, invalid, responsive, and regression-sensitive areas.
+- `EXHAUSTIVE`: broad manual pass across critical, edge, accessibility, responsive, failure, and regression areas.
+- `USER_SPECIFIED`: constrained by the user's requested focus; state what is excluded.
+
+State what the pass does and does not claim to cover. Do not let a narrow inspection read like exhaustive QA.
 
 Build identity rule: if the ship decision depends on traceability and URL/build/commit/version is unknown, lower verdict confidence and state what identity evidence is missing.
 
@@ -179,6 +190,12 @@ Produce:
 
 ## Verdict
 `SHIP` / `SHIP WITH MINOR ISSUES` / `DO NOT SHIP`
+
+## QA scope
+
+`SMOKE` / `CRITICAL_PATH` / `STANDARD` / `EXHAUSTIVE` / `USER_SPECIFIED`
+
+State what this pass does and does not claim to cover.
 
 ## Evidence ledger
 
