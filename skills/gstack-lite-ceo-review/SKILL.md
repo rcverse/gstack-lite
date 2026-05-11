@@ -137,6 +137,16 @@ Mode-specific posture:
 - `EXPAND_SCOPE`: name the more ambitious version and why it is justified.
 - `CLARIFY_DECISION`: focus on unresolved choices, not recommendations pretending to be final.
 
+## Step 3.5 — Future-state / scope trajectory
+
+Map the scope over time:
+
+```text
+Current state → This plan → 6–12 month ideal
+```
+
+State whether the plan moves toward the ideal, away from it, or intentionally remains narrow. Intentional narrowness can be correct, but it must be explicit rather than accidental.
+
 ## Step 4 — Hidden assumptions
 
 Look for assumptions about:
@@ -226,7 +236,17 @@ Verdict criteria:
 
 ## Scope challenge
 
+## Scope trajectory
+
+Current state → This plan → 6–12 month ideal
+
 ## Scope Decision Gate
+
+## Scope decision table
+
+| Scope item | Decision | Rationale |
+|---|---|---|
+|  | ACCEPT / DEFER / REJECT |  |
 
 ## Strategic failure map
 
