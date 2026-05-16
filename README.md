@@ -2,11 +2,25 @@
 
 Portable, low-token methodology skills distilled from the public GStack methodology.
 
-This package is not GStack. It does not include the GStack runtime, browser daemon, telemetry, dashboards, local `~/.gstack` state, update checks, or proactive routing. It keeps the useful review and artifact-generation discipline in small Markdown skills that can be copied into Claude Code or used as standalone prompts.
+## What you get
 
-The governing standard is `DISTILLATION_STANDARD.md`: preserve methodology and operational pressure, remove runtime machinery, keep each skill project-agnostic.
+Seven Markdown skills for AI-assisted work:
 
-This pack is production-usable for idea shaping, scope review, visual exploration, static design-reference/prototype handoff, design review, engineering-readiness review, and evidence-based QA. It is not yet a complete pre-merge or release workflow pack until code-review and release-check skills are added.
+- shape rough ideas before a PRD exists;
+- review product scope and strategic fit;
+- review implementation plans before coding;
+- explore multiple visual directions;
+- create static HTML references, lightweight clickable prototypes, or handoff artifacts;
+- review UI/UX readiness;
+- run evidence-based QA on built features or demos.
+
+Use them as Claude Code skills or as plain prompts in any capable agent.
+
+## What this is not
+
+This package is not GStack. It does not include the GStack runtime, browser daemon, telemetry, dashboards, local `~/.gstack` state, update checks, proactive routing, or auto-ship behavior.
+
+The goal is to keep the useful review and artifact-generation discipline in small Markdown skills that can travel between projects.
 
 ## Included skills
 
@@ -22,9 +36,21 @@ This pack is production-usable for idea shaping, scope review, visual exploratio
 
 Each skill is independently invocable. Suggested sequences are examples, not required pipelines. Skills may recommend each other as optional next steps when their own output reveals a need, but no skill depends on another by default.
 
-Backlog ideas are documented in `DESIGN_NOTES.md`: code review, debug investigation, retro, and release check.
+Current limitation: this pack does not yet include lite code review, debug investigation, or release check. For pre-merge and release workflows, use the current skills as planning/design/engineering/QA gates until those skills are added.
 
-Current limitation: this pack does not yet include lite code review, debug investigation, or release check. For pre-merge and release workflows, use the current skills as planning/design/engineering/QA gates until those backlog skills are added.
+## Quick use
+
+1. Open the relevant `skills/<skill-name>/SKILL.md`.
+2. Give your agent that skill plus the relevant PRD, plan, design brief, screenshot, prototype, demo URL, test notes, or diff.
+3. Ask for the skill's output format.
+
+Example:
+
+```text
+Use `gstack-lite-eng-review` to review this implementation plan.
+Mark repo-dependent claims as not verified.
+Do not edit files.
+```
 
 ## Install
 
@@ -48,7 +74,7 @@ git add .claude/skills
 git commit -m "chore: add gstack-lite review skills"
 ```
 
-### Generic repo usage
+### Generic prompt usage
 
 Use the `SKILL.md` files as review or artifact-generation prompts. They are written to run without any GStack binaries or state.
 
@@ -90,6 +116,20 @@ For an already-built feature:
 
 1. `gstack-lite-qa-review`
 2. optionally future `gstack-lite-code-review` when implemented
+
+## Repo map
+
+- `skills/` — the portable skills.
+- `templates/` — optional report templates.
+- `examples/` — example outputs.
+- `DISTILLATION_STANDARD.md` — durable quality standard for skills.
+- `SKILL_WORKFLOW.md` — maintainer workflow for drafting, revising, and smoke-testing skills.
+- `SOURCE_MAP.md` — provenance map from original GStack methodology to this lite pack.
+- `NOTICE.md` — attribution notice.
+
+## Maintainer workflow
+
+Use `SKILL_WORKFLOW.md` when drafting a new skill, revising an existing skill, or smoke-testing whether a skill can run end-to-end as a standalone prompt. Keep durable standards in `DISTILLATION_STANDARD.md`; keep the practical drafting/testing procedure in `SKILL_WORKFLOW.md`.
 
 ## Quality boundary
 
