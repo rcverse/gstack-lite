@@ -41,6 +41,16 @@ Maintain an evidence ledger:
 
 If you lack repository access, review from the supplied plan and mark repo-dependent claims as `not verified`.
 
+## Review depth
+
+Choose and state one depth before reviewing:
+
+- `SMOKE`: smallest pass for tiny or obvious changes. Check scope, reuse, one main failure path, and exact done/test condition.
+- `STANDARD`: default. Full buildability, architecture, data/state, failure-map, dependency, and testing review.
+- `DEEP`: use for high-risk, multi-system, security/privacy-sensitive, data migration, release-critical, or research-validity-sensitive plans.
+
+A `SMOKE` pass must not claim full implementation readiness for complex work. If smoke review finds unresolved architecture, state, failure, or test decisions, escalate to `STANDARD` or mark the verdict lower.
+
 ## Step 0 — Scope and existing-code check
 
 Do this before architecture critique.
@@ -188,9 +198,14 @@ Produce:
 
 Verdict criteria:
 
-- `CLEAR`: implementer can start without guessing; failure modes and tests are adequately specified.
+- `CLEAR`: implementer can start without guessing; failure modes and tests are adequately specified for the selected review depth.
 - `CLEAR WITH MINOR FIXES`: implementation direction is sound but plan needs targeted edits.
 - `BLOCKED`: architecture, scope, data/state, tests, distribution, or decisions are too unclear to implement safely.
+
+## Review depth
+`SMOKE` / `STANDARD` / `DEEP`
+
+State what this depth does and does not claim to cover.
 
 ## Evidence ledger
 
