@@ -4,7 +4,7 @@ Portable, low-token methodology skills distilled from the public GStack methodol
 
 This package is not GStack. It does not include the GStack runtime, browser daemon, telemetry, dashboards, local `~/.gstack` state, update checks, or proactive routing. It keeps the useful review and artifact-generation discipline in small Markdown skills that can be copied into Claude Code or used as standalone prompts.
 
-The governing standard is `DISTILLATION_STANDARD.md`: preserve methodology and operational pressure, remove runtime machinery, keep each skill project-agnostic.
+The governing standard is `DISTILLATION_STANDARD.md`: preserve methodology and operational pressure, remove runtime machinery, keep each skill project-agnostic. The working procedure for drafting, revising, and smoke-testing skills is `SKILL_WORKFLOW.md`.
 
 This pack is production-usable for idea shaping, scope review, visual exploration, static design-reference/prototype handoff, design review, engineering-readiness review, and evidence-based QA. It is not yet a complete pre-merge or release workflow pack until code-review and release-check skills are added.
 
@@ -90,6 +90,10 @@ For an already-built feature:
 
 1. `gstack-lite-qa-review`
 2. optionally future `gstack-lite-code-review` when implemented
+
+## Maintainer workflow
+
+Use `SKILL_WORKFLOW.md` when drafting a new skill, revising an existing skill, or smoke-testing whether a skill can run end-to-end as a standalone prompt. Keep durable standards in `DISTILLATION_STANDARD.md`; keep the practical drafting/testing procedure in `SKILL_WORKFLOW.md`.
 
 ## Quality boundary
 
