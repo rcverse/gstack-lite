@@ -8,7 +8,9 @@ The first pass was too short and risked becoming generic checklists. The revisio
 
 A later independent fidelity pass identified several small but important over-compression risks: office-hours needed a stronger second-push rule, CEO review needed scope trajectory capture, engineering and design review needed explicit NOT-in-scope/deferred-decision outputs, design review needed review-mode separation, and QA needed explicit pass-scope labeling. Those patches have now been applied.
 
-Current status: production-usable as a planning, design, engineering-readiness, and QA review pack, but not yet a complete pre-merge/release workflow pack. It still needs real-world runs and the backlog code-review/release-check skills before being treated as a full GStack-lite workflow layer.
+The design artifact pass added standalone visual exploration and static-reference/prototype/handoff skills while preserving the repo's decoupling rule: skills may recommend each other, but no skill requires another by default.
+
+Current status: production-usable as a planning, visual-exploration, design-reference, design-review, engineering-readiness, and QA review pack, but not yet a complete pre-merge/release workflow pack. The new artifact-generation skills are not yet battle-tested on real visual artifacts.
 
 ## Skill scores
 
@@ -19,6 +21,8 @@ Scale: 1-5. Production target: average >= 4.0, no score below 3.
 | `gstack-lite-office-hours` | 4 | 5 | 4 | 5 | 4 | 5 | 4.5 |
 | `gstack-lite-ceo-review` | 4 | 5 | 4 | 5 | 4 | 5 | 4.5 |
 | `gstack-lite-eng-review` | 4 | 5 | 5 | 5 | 4 | 5 | 4.7 |
+| `gstack-lite-design-shotgun` | 4 | 5 | 4 | 5 | 4 | 5 | 4.5 |
+| `gstack-lite-design-html` | 4 | 5 | 4 | 5 | 4 | 5 | 4.5 |
 | `gstack-lite-design-review` | 4 | 5 | 5 | 5 | 4 | 5 | 4.7 |
 | `gstack-lite-qa-review` | 4 | 5 | 5 | 5 | 4 | 5 | 4.7 |
 
@@ -44,18 +48,26 @@ Scale: 1-5. Production target: average >= 4.0, no score below 3.
 - Added explicit QA scope levels to `gstack-lite-qa-review` so smoke, critical-path, standard, exhaustive, and user-specified passes do not imply the same confidence.
 - Clarified in `README.md` that the current pack is production-usable for planning/review/QA but not yet a complete pre-merge or release workflow pack.
 
+## What improved in the design artifact pass
+
+- Added `gstack-lite-design-shotgun` as a standalone visual-direction exploration skill with deliberate variant-count discipline, authority grounding, anti-generic rules, evaluation rubric, and synthesis/handoff output.
+- Added `gstack-lite-design-html` as a standalone static reference / lightweight clickable prototype / implementation handoff skill with source-of-truth hierarchy, visual-reference handling, prototype-code reuse warnings, and responsive/accessibility rules.
+- Clarified in `README.md` that each skill is independently invocable and that suggested workflows are examples, not required pipelines.
+- Updated `SOURCE_MAP.md` to document what was preserved and removed from the original `design-shotgun` and `design-html` sources.
+- Updated `DESIGN_NOTES.md` to define the artifact-generation boundary and the design-skill decoupling principle.
+
 ## Remaining concerns
 
-1. **No real-world run yet.** The pack should be tested on at least one frontend feature plan, one backend/internal-tool plan, one research-tool plan, and one built UI.
+1. **No real-world visual-artifact run yet.** The new design artifact skills should be tested on at least one screenshot-driven UI reference, one authority-doc-driven prototype, and one visual-direction exploration.
 2. **No code-review lite skill yet.** The pack will feel incomplete for pre-merge workflows until `gstack-lite-code-review` exists.
 3. **No release-check lite skill yet.** The current QA skill can support release decisions, but it does not replace a dedicated release-readiness audit covering tests, docs, rollback, versioning, distribution, and final go/no-go.
 4. **No debug-investigation lite skill yet.** The original GStack investigation methodology is valuable enough to distill, especially the no-fix-without-root-cause rule.
-5. **No automated validation.** There is no script checking YAML frontmatter, forbidden strings, or line-length/token discipline yet.
+5. **No automated validation.** There is no script checking YAML frontmatter, forbidden strings, line-length/token discipline, or required operational-pressure sections yet.
 6. **No license file for this new repo yet.** `NOTICE.md` attributes GStack, but the repo should still choose its own license before publication.
 
 ## Forbidden-runtime audit
 
-Checked by content design, not automated script yet:
+Checked by content design and manual string review, not an automated script yet:
 
 - no `~/.gstack` dependency in skills;
 - no telemetry;
@@ -63,13 +75,15 @@ Checked by content design, not automated script yet:
 - no dashboard dependency;
 - no browser daemon dependency;
 - no `$B` or `$D` commands in skills;
+- no comparison-board or feedback-file dependency in the new artifact skills;
 - no proactive auto-routing;
+- no forced skill sequence;
 - no automatic implementation, fixing, committing, or shipping;
 - explicit no-file-modification rule in every skill.
 
 ## Recommendation
 
-Use the current five-skill pack as a production-usable review layer for early shaping, scope review, design review, engineering readiness, and evidence-based QA.
+Use the current seven-skill pack as a production-usable methodology layer for early shaping, scope review, visual exploration, static reference/prototype handoff, design review, engineering readiness, and evidence-based QA.
 
 Before treating `gstack-lite` as a fuller GStack-methodology replacement, add at least:
 
