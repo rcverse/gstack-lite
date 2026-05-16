@@ -7,7 +7,7 @@ The original GStack skills combine two layers:
 1. review methodology: how to think, what to inspect, what decisions to surface;
 2. runtime harness: local config, browser daemon, dashboards, telemetry, update checks, review logs, artifact sync, and automation.
 
-`gstack-lite` keeps the first layer and removes the second. The result is a small set of review skills that can travel between projects and agents without requiring GStack installation.
+`gstack-lite` keeps the first layer and removes the second. The result is a small set of review and artifact-generation skills that can travel between projects and agents without requiring GStack installation.
 
 ## Why exclude the full runtime
 
@@ -27,6 +27,20 @@ These skills can be used with:
 
 They do not assume that GStack owns the workflow. The project authority files own the workflow.
 
+## Skill decoupling
+
+Each skill is standalone. Suggested workflows are examples, not required pipelines. Skills may recommend another skill only when the current output reveals a useful next action. That recommendation is conditional and non-blocking unless the current skill's own evidence gate fails.
+
+Design skills follow the same rule. `gstack-lite-design-shotgun`, `gstack-lite-design-html`, and `gstack-lite-design-review` may compose, but none requires another by default.
+
+## Design artifact-generation boundary
+
+The design artifact skills are methodology skills. They can produce briefs, prompts, static references, prototype plans, or handoff artifacts. They do not assume GStack's designer binary, browser daemon, comparison boards, feedback files, local artifact store, or generated runtime state.
+
+`gstack-lite-design-shotgun` explores visual direction. `gstack-lite-design-html` produces static reference/prototype/handoff instructions or artifacts. Neither owns production implementation unless the user explicitly asks.
+
+Generated visuals, screenshots, prototype HTML, and prior mockups are evidence or references unless the user explicitly makes them authoritative. Product/design authority docs and explicit user instructions stay higher in the source-of-truth hierarchy.
+
 ## Token-bloat control
 
 - Keep each `SKILL.md` compact.
@@ -38,7 +52,7 @@ They do not assume that GStack owns the workflow. The project authority files ow
 
 ## Preserving methodology without copying source
 
-The lite skills preserve the shape of the original review work: scope challenge, existing-code reuse check, failure-mode review, explicit verdicts, and user decision capture. They deliberately restate these ideas in new, compact wording rather than pasting long source sections.
+The lite skills preserve the shape of the original review and artifact work: scope challenge, existing-code reuse check, authority grounding, variant/handoff discipline, failure-mode review, explicit verdicts, and user decision capture. They deliberately restate these ideas in new, compact wording rather than pasting long source sections.
 
 ## Adding future lite skills
 
