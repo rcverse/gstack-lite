@@ -191,6 +191,11 @@ Produce:
 ## Mode
 `STARTUP` / `INTERNAL_TOOL` / `RESEARCH_TOOL` / `BUILDER`
 
+## Confidence
+`high` / `medium` / `low`
+
+Explain the confidence in one sentence, based on observed vs inferred vs assumed evidence.
+
 ## One-line thesis
 
 ## Evidence ledger
