@@ -82,7 +82,7 @@ Use the `SKILL.md` files as review or artifact-generation prompts. They are writ
 
 1. Give the agent the relevant authority files: PRD, plan, architecture notes, design brief, screenshots, demo URL, test notes, or diff.
 2. Invoke the appropriate lite skill directly.
-3. Ask for a report file using `templates/review-report-template.md` or `templates/qa-report-template.md` when you want a durable artifact.
+3. Use the output format defined inside that skill.
 4. Treat `BLOCKED` or `DO NOT SHIP` as a real stop, not a vibe.
 
 ## Design usage guidance
@@ -119,13 +119,14 @@ For an already-built feature:
 
 ## Repo map
 
-- `skills/` — the portable skills.
-- `templates/` — optional report templates.
+- `skills/` — the portable skills. Each skill is self-contained and carries its own output contract in `SKILL.md`.
 - `examples/` — example outputs.
 - `DISTILLATION_STANDARD.md` — durable quality standard for skills.
 - `SKILL_WORKFLOW.md` — maintainer workflow for drafting, revising, and smoke-testing skills.
 - `SOURCE_MAP.md` — provenance map from original GStack methodology to this lite pack.
 - `NOTICE.md` — attribution notice.
+
+If a future skill needs a long reusable template or reference file, keep it inside that skill's own directory and reference it from that skill's `SKILL.md`.
 
 ## Maintainer workflow
 
